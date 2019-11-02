@@ -12,7 +12,7 @@ clock = pygame.time.Clock()
 
 # Title and icon
 pygame.display.set_caption("Mark's Minesweeper")
-icon = pygame.image.load("assets/icon.png")
+icon = pygame.image.load("assets/flag.png")
 pygame.display.set_icon(icon)
 
 # Button images
