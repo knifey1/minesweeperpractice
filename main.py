@@ -39,6 +39,7 @@ class Tile:
         self.has_bomb = False
         self.image = untouched
         self.count = 0
+        self.flagged = False
 
 
 # Generate tiles
@@ -146,7 +147,6 @@ def check_tile(x, y):
                     check_tile(x + 32, y)
 
 
-
 # Bomb was clicked. Show all bombs, refuse more clicks
 def game_over():
     global lost
@@ -156,6 +156,7 @@ def game_over():
             if tiles[(i, j)].has_bomb:
                 tiles[(i, j)].image = bomb
 
+# When face is clicked, clear everything and reassign bombs
 def reset():
     global lost
     lost = False
@@ -163,10 +164,9 @@ def reset():
     for i in range(0, 640, 32):
         for j in range(0, 640, 32):
             tiles[(i, j)].count = 0
+            tiles[(i, j)].flagged = False
             check_neighbors(i, j)
             tiles[(i, j)].image = untouched
-
-
 
 
 # Generate bombs
@@ -176,11 +176,6 @@ generate_bombs()
 for i in range(0, 640, 32):
     for j in range(0, 640, 32):
         check_neighbors(i, j)
-
-# Assign icons
-# for i in range(0, 640, 32):
-# #     for j in range(0, 640, 32):
-# #         assign_icons(i, j)
 
 # Main game loop
 running = True
@@ -196,17 +191,36 @@ while running:
         # Lets us quit
         if event.type == pygame.QUIT:
             running = False
-        # Mouse click
-        if event.type == pygame.MOUSEBUTTONUP:
+        # Left mouse click
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+            # Get mouse click location
             pos = list(pygame.mouse.get_pos())
             # Check if face is clicked
             if pos[0] >= 304 and pos[0] <= 336 and pos[1] > 640:
                 reset()
-            # Convert coords to a multiple of 32, rounded down
-            mouse_x = int(pos[0] / 32) * 32
-            mouse_y = int(pos[1] / 32) * 32
-            if not lost:
-                check_tile(mouse_x, mouse_y)
+            if pos[1] < 640:
+                # Convert coords to a multiple of 32, rounded down
+                mouse_x = int(pos[0] / 32) * 32
+                mouse_y = int(pos[1] / 32) * 32
+                if not lost and not tiles[(mouse_x, mouse_y)].flagged:
+                    check_tile(mouse_x, mouse_y)
+        # Right mouse click
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 3:
+            # Get mouse click location
+            pos = list(pygame.mouse.get_pos())
+            if pos[1] < 640:
+                # Convert coords to a multiple of 32, rounded down
+                mouse_x = int(pos[0] / 32) * 32
+                mouse_y = int(pos[1] / 32) * 32
+                if not lost:
+                    # If no flag, make flag
+                    if tiles[(mouse_x, mouse_y)].image == untouched:
+                        tiles[(mouse_x, mouse_y)].flagged = True
+                        tiles[(mouse_x, mouse_y)].image = flag
+                    # If flag, make no flag
+                    elif tiles[(mouse_x, mouse_y)].image == flag:
+                        tiles[(mouse_x, mouse_y)].flagged = False
+                        tiles[(mouse_x, mouse_y)].image = untouched
 
     # Draw buttons
     for i in range(0, 640, 32):
