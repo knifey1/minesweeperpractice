@@ -12,23 +12,23 @@ clock = pygame.time.Clock()
 
 # Title and icon
 pygame.display.set_caption("Mark's Minesweeper")
-icon = pygame.image.load("icon.png")
+icon = pygame.image.load("assets/icon.png")
 pygame.display.set_icon(icon)
 
 # Button images
-untouched = pygame.image.load("normal.png")
-clear = pygame.image.load("clear.png")
-bomb = pygame.image.load("bomb.png")
-flag = pygame.image.load("flag.png")
-one = pygame.image.load("1.png")
-two = pygame.image.load("2.png")
-three = pygame.image.load("3.png")
-four = pygame.image.load("4.png")
-five = pygame.image.load("5.png")
-six = pygame.image.load("6.png")
-seven = pygame.image.load("7.png")
-eight = pygame.image.load("8.png")
-face = pygame.image.load("face.png")
+untouched = pygame.image.load("assets/normal.png")
+clear = pygame.image.load("assets/clear.png")
+bomb = pygame.image.load("assets/bomb.png")
+flag = pygame.image.load("assets/flag.png")
+one = pygame.image.load("assets/1.png")
+two = pygame.image.load("assets/2.png")
+three = pygame.image.load("assets/3.png")
+four = pygame.image.load("assets/4.png")
+five = pygame.image.load("assets/5.png")
+six = pygame.image.load("assets/6.png")
+seven = pygame.image.load("assets/7.png")
+eight = pygame.image.load("assets/8.png")
+face = pygame.image.load("assets/face.png")
 
 lost = False
 
