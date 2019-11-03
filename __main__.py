@@ -217,7 +217,11 @@ def check_win():
     if cleared == 400 - bombs:
         face_image = sunglasses
         lost = True
-
+        # This will show any unflagged bombs when the game is won
+        for i in range(0, 640, 32):
+            for j in range(0, 640, 32):
+                if tiles[(i, j)].has_bomb and tiles[(i, j)].image == untouched:
+                    tiles[(i, j)].image = bomb
 
 # Generate bombs
 generate_bombs()
