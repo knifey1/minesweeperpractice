@@ -225,6 +225,7 @@ def check_win():
                 if tiles[(i, j)].has_bomb and tiles[(i, j)].image == untouched:
                     tiles[(i, j)].image = bomb
 
+
 # Generate bombs
 generate_bombs()
 
@@ -283,6 +284,14 @@ while running:
     for i in range(0, 640, 32):
         for j in range(0, 640, 32):
             draw_button(i, j)
+    # When mousedown, show clear tile at cursor if untouched
+    if pygame.mouse.get_pressed() == (True, False, False):
+        # Get mouse click location
+        pos = list(pygame.mouse.get_pos())
+        mouse_x = int(pos[0] / 32) * 32
+        mouse_y = int(pos[1] / 32) * 32
+        if tiles[(mouse_x, mouse_y)].image == untouched:
+            screen.blit(clear, (mouse_x, mouse_y))
     # Draw face
     screen.blit(face_image, (304, 640))
     # Refresh screen
