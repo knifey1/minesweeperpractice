@@ -150,18 +150,34 @@ def check_tile(x, y):
                 if not tiles[(x, y - 32)].has_bomb and tiles[(x, y - 32)].count == 0 and tiles[
                         (x, y - 32)].image == untouched:
                     check_tile(x, y - 32)
+                elif not tiles[(x, y - 32)].has_bomb and tiles[
+                        (x, y - 32)].image == untouched:
+                    assign_icons(x, y - 32)
+                    cleared += 1
             if x - 32 >= 0:
                 if not tiles[(x - 32, y)].has_bomb and tiles[(x - 32, y)].count == 0 and tiles[
                         (x - 32, y)].image == untouched:
                     check_tile(x - 32, y)
+                elif not tiles[(x - 32, y)].has_bomb and tiles[
+                        (x - 32, y)].image == untouched:
+                    assign_icons(x - 32, y)
+                    cleared += 1
             if y + 32 < 640:
                 if not tiles[(x, y + 32)].has_bomb and tiles[(x, y + 32)].count == 0 and tiles[
                         (x, y + 32)].image == untouched:
                     check_tile(x, y + 32)
+                elif not tiles[(x, y + 32)].has_bomb and tiles[
+                        (x, y + 32)].image == untouched:
+                    assign_icons(x, y + 32)
+                    cleared += 1
             if x + 32 < 640:
                 if not tiles[(x + 32, y)].has_bomb and tiles[(x + 32, y)].count == 0 and tiles[
                         (x + 32, y)].image == untouched:
                     check_tile(x + 32, y)
+                elif not tiles[(x + 32, y)].has_bomb and tiles[
+                        (x + 32, y)].image == untouched:
+                    assign_icons(x + 32, y)
+                    cleared += 1
 
 
 # Bomb was clicked. Show all bombs, refuse more clicks
