@@ -65,7 +65,7 @@ def generate_bombs():
     global bombs
     for tuple in tiles:
         tiles[tuple].has_bomb = False
-        if random.randint(1, 10) == 1:
+        if random.randint(1, 50) == 1:
             tiles[tuple].has_bomb = True
             bombs += 1
 
@@ -197,8 +197,10 @@ def reset():
     global lost
     global bombs
     global face_image
+    global cleared
     lost = False
     bombs = 0
+    cleared = 0
     face_image = face
     generate_bombs()
     for i in range(0, 640, 32):
